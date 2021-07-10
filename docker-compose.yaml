@@ -128,3 +128,9 @@ services:
       SCHEMAREGISTRY_URL: "http://schema-registry:8081/"
     depends_on:
     - "schema-registry"
+
+  stedi:  
+   image: scmurdock/stedi
+   ports:
+   - "4567:4567"
+    environment:
