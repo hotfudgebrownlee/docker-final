@@ -134,3 +134,5 @@ services:
    ports:
    - "4567:4567"
     environment:
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
