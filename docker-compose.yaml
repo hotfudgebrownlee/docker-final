@@ -32,6 +32,26 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
     depends_on:
     - "zookeeper"
+  
+
+#COME BACK TO SET UP KAFKA PORTION AND REDIS
+  #Lists the name of the server.
+  stedi: 
+    #Creates the image of the server.         
+      image: scmurdock/stedi
+    #Defines the port number of the server to be used on the WebApplication.   
+      ports:
+      - "4567:4567"
+    #Creates the environmental variables of the server that defines the behavior of the server.  
+        environment:
+    #References the redis server because stedi is dependent on this server      
+          REDIS_HOST: "redis"
+    #Lists the port number of the redis server so that it can find the redis server.
+          REDIS_PORT: "6379"
+          #the next three variables are guessed *thumbs up*
+          REDIS_DB: "0"
+          KAFKA_BROKER: "kaffy:9092"
+          KAFKA_RISK_TOPIC: "customer-risk-topic"
 
   schema-registry:
     image: confluentinc/cp-schema-registry:5.2.2
@@ -128,17 +148,4 @@ services:
       SCHEMAREGISTRY_URL: "http://schema-registry:8081/"
     depends_on:
     - "schema-registry"
-
-#Lists the name of the server.
-  stedi: 
-#Creates the image of the server.         
-   image: scmurdock/stedi
-#Defines the port number of the server to be used on the WebApplication.   
-   ports:
-   - "4567:4567"
-#Creates the environmental variables of the server that defines the behavior of the server.  
-    environment:
-#References the redis server because stedi is dependent on this server      
-      REDIS_HOST: "redis"
-#Lists the port number of the redis server so that it can find the redis server.
-      REDIS_PORT: "6379"
+    
